@@ -1,10 +1,10 @@
 # Running Rancher 2.0 + Kubernetes on a standalone ESXi host with vSphere as cloud provider
 
-For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like kubernetes.
+For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like kubernetes. This below depicts the steps you need to take. It's a bit different from the official documentation, and combines bits and pieces from all over, along with my own discoveries.
 
 Install ESXi 6.7 on your homelab machine. Create a user called `provisioner` with password `somepassword`, grant it the following permissions.
 
-Create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder. Make sure you use `RancherOS` for the `-C` parameter value.
+To be able to use the same SSH key to connect to all of the kubernetes nodes, create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder. Make sure you use `RancherOS` for the `-C` parameter value.
 
 Make your cloud-init script accessible on some url (look for an example here: https://raw.githubusercontent.com/alexlokshin/cloud-init/master/rancher.yaml), don't forget to substitute the ssh key with the value from id_rsa.pub. You can also base64 encode the contents of the file  and provide it as a guestinfo parameter called `cloud-init.config.data`.
 
@@ -36,3 +36,5 @@ Please note that `datacenter` and `datacenters` parameters here are mandatory, b
 Click 'Create cluster'.
 
 To test, deploy artifactory from the catalog apps.
+
+If it doesn't work, look through the kubelet logs. That's what the common ssh key is for. SSH into the master node, run `docker ps | grep kubelet`, get the container id. Run `docker logs <CONTAINER_ID>`, and look for errors.
