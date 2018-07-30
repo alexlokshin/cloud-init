@@ -2,9 +2,9 @@
 
 Install ESXi 6.7 on your homelab machine. Create a user called `provisioner` with password `somepassword`, grant it the following permissions.
 
-Create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder.
+Create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder. Make sure you use `RancherOS` for the `-C` parameter value.
 
-Make your cloud-init script accessible on some url (look for an example here: https://raw.githubusercontent.com/alexlokshin/cloud-init/master/rancher.yaml), don't forget to substitute the ssh key with the value from id_rsa.pub.
+Make your cloud-init script accessible on some url (look for an example here: https://raw.githubusercontent.com/alexlokshin/cloud-init/master/rancher.yaml), don't forget to substitute the ssh key with the value from id_rsa.pub. You can also base64 encode the contents of the file  and provide it as a guestinfo parameter called `cloud-init.config.data`.
 
 Create a VM, install docker, install Rancher: https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/
 
