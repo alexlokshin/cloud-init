@@ -27,9 +27,11 @@ Proceed to the cluster creation.
 
 ```yaml
 cloud_provider: 
-  custom_cloud_provider: "[Global]\nuser = \"provisioner\"\npassword = \"somepassword\"\nport = \"443\"\ninsecure-flag = \"1\"\ndatacenters = \"ha-datacenter\"\nworking-dir = \"kubevols\"\n\n[VirtualCenter \"192.168.88.10\"]\n\n[Workspace]\nserver = \"192.168.88.10\"\ndatacenter = \"ha-datacenter\"\nfolder = \"kubevols\"\ndefault-datastore = \"datastore1\"\n[Disk]\nscsicontrollertype = pvscsi\n[Network]\npublic-network = \"VM Network\""
+  custom_cloud_provider: "[Global]\nuser = \"provisioner\"\npassword = \"somepassword\"\nport = \"443\"\ninsecure-flag = \"1\"\ndatacenters = \"ha-datacenter\"\nworking-dir = \"kubevols\"\n\n[VirtualCenter \"ESX_IP\"]\n\n[Workspace]\nserver = \"ESX_IP\"\ndatacenter = \"ha-datacenter\"\nfolder = \"kubevols\"\ndefault-datastore = \"datastore1\"\n[Disk]\nscsicontrollertype = pvscsi\n[Network]\npublic-network = \"VM Network\""
   name: "vsphere"
 ```
+
+Here, `ESX_IP` is the IP address of your standalone ESXi host.
 
 Please note that `datacenter` and `datacenters` parameters here are mandatory, but for standalone ESXi hosts you can use the default value of `ha-datacenter`.
 
