@@ -1,6 +1,6 @@
 # Running Rancher + Kubernetes on ESXi with vSphere as cloud provider
 
-Install ESXi 6.7 on your homelab machine. Create a user called `provisioner`, grant it the following permissions.
+Install ESXi 6.7 on your homelab machine. Create a user called `provisioner` with password `somepassword`, grant it the following permissions.
 
 Create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder.
 
