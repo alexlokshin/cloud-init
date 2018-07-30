@@ -1,4 +1,4 @@
-# Running Rancher + Kubernetes on a standalone ESXi host with vSphere as cloud provider
+# Running Rancher 2.0 + Kubernetes on a standalone ESXi host with vSphere as cloud provider
 
 For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like kubernetes.
 
