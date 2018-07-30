@@ -1,4 +1,6 @@
-# Running Rancher + Kubernetes on ESXi with vSphere as cloud provider
+# Running Rancher + Kubernetes on a standalone ESXi host with vSphere as cloud provider
+
+For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like kubernetes.
 
 Install ESXi 6.7 on your homelab machine. Create a user called `provisioner` with password `somepassword`, grant it the following permissions.
 
@@ -25,9 +27,11 @@ Proceed to the cluster creation.
 
 ```yaml
 cloud_provider: 
-  custom_cloud_provider: "[Global]\nuser = \"provisioner\"\npassword = \"somepassword\"\nport = \"443\"\ninsecure-flag = \"1\"\ndatacenters = \"ha-datacenter\"\nworking-dir = \"kubevols\"\n\n[VirtualCenter \"192.168.88.10\"]\n\n[Workspace]\nserver = \"192.168.88.10\"\ndatacenter = \"ha-datacenter\"\nfolder = \"k8s-dummy\"\ndefault-datastore = \"datastore1\"\n[Disk]\nscsicontrollertype = pvscsi\n[Network]\npublic-network = \"VM Network\""
+  custom_cloud_provider: "[Global]\nuser = \"provisioner\"\npassword = \"somepassword\"\nport = \"443\"\ninsecure-flag = \"1\"\ndatacenters = \"ha-datacenter\"\nworking-dir = \"kubevols\"\n\n[VirtualCenter \"192.168.88.10\"]\n\n[Workspace]\nserver = \"192.168.88.10\"\ndatacenter = \"ha-datacenter\"\nfolder = \"kubevols\"\ndefault-datastore = \"datastore1\"\n[Disk]\nscsicontrollertype = pvscsi\n[Network]\npublic-network = \"VM Network\""
   name: "vsphere"
 ```
+
+Please note that `datacenter` and `datacenters` parameters here are mandatory, but for standalone ESXi hosts you can use the default value of `ha-datacenter`.
 
 Click 'Create cluster'.
 
