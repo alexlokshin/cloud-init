@@ -16,7 +16,7 @@ In Rancher, create a master template, select vSphere as provider, configure the 
 * Username: `provisioner`
 * Password: `somepassword`
 
-* Add a configuration parameter for guestinfo: disk.enableUUID=TRUE
+* Add a configuration parameter for guestinfo: `disk.enableUUID` with the value of `TRUE`
 
 Save the template. Create a node template with more vCPUs and RAM.
 
