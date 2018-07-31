@@ -1,6 +1,6 @@
 # Running Rancher 2.0 + Kubernetes on a standalone ESXi host with vSphere as cloud provider
 
-For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like kubernetes. This text below depicts the steps you need to take in order to take advantage of volume provisioning along with VM provisioning using Rancher 2.0. It's a bit different from the official documentation, and combines bits and pieces from all over, along with my own discoveries.
+For us homelab enthusiasts, it might be a real treat to get a decomissioned server off eBay for cheap, load it up with many Gigs of 5 year old RAM, and wonder around, marveling the creation. In all actuality, this beast can be turned into a mini cloud, where you can run pretty much anything. Like Kubernetes. This text below depicts the steps you need to take in order to take advantage of volume provisioning along with VM provisioning using Rancher 2.0. It's a bit different from the official documentation, and combines bits and pieces from all over, along with my own discoveries.
 
 Install ESXi 6.7 on your homelab server (I recommend at least 8 phusical CPU cores, and at least 96Gb of RAM). After ESXi is installed, navigate to the ESX_IP provided on the yellow and grey screen. Log in with `admin` and the password you've selected during setup, join all disks into a datastore called `datastore1` (that is a default name, anyways), and create a user called `provisioner` with password `somepassword`, grant it the following permissions (that can be done by right clicking `Host`, and selecting `Permissions`.
 
@@ -43,6 +43,6 @@ To test, deploy artifactory from the catalog apps.
 
 If it doesn't work, look through the kubelet logs. That's what the common ssh key is for. SSH into the master node, run `docker ps | grep kubelet`, get the container id. Run `docker logs <CONTAINER_ID>`, and look for errors.
 
-Recap. What did we end up with? Kubernetes can provision dynamic volumes, and Rancher can create and replace failed nodes. You're constrained by the amount of disk, CPU and RAM available. At the moment, the best value can be had by procuring machines like Dell PowerEdge r610/620, Dell PowerEdge R710/720, as well as HP ProLiant Gen7/8. 
+Recap. What did we end up with? You've got an ESXi host, an instance of Rancher 2.0, and a Kubernetes cluster that treats ESXi like a cloud provider. Kubernetes can provision dynamic volumes, and Rancher can create and replace failed nodes. Not to mention, the Kubernetes cluster is loaded up with the Nginx ingress controller, and a Helm library integration. You're constrained by the amount of disk, CPU and RAM available. At the moment, the best value can be had by procuring machines like Dell PowerEdge r610/620, Dell PowerEdge R710/720, as well as HP ProLiant Gen7/8. 
 
 PS. Same approach can be used for a real vSphere in an enterprise setting, changes are rather minimal.
