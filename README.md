@@ -8,7 +8,9 @@ To be able to use the same SSH key to connect to all of the kubernetes nodes, cr
 
 Make your cloud-init script accessible on some url (look for an example here: https://raw.githubusercontent.com/alexlokshin/cloud-init/master/rancher.yaml), don't forget to substitute the ssh key with the value from id_rsa.pub. You can also base64 encode the contents of the file  and provide it as a guestinfo parameter called `cloud-init.config.data`.
 
-Create a VM, install docker, install Rancher: https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/
+Create a VM (I recommend using a minimal CentOS 7.x images as a base: http://isoredirect.centos.org/centos/7/isos/x86_64/CentOS-7-x86_64-Minimal-1804.iso), install docker (https://docs.docker.com/install/linux/docker-ce/centos/), install Rancher: https://rancher.com/docs/rancher/v2.x/en/installation/single-node-install/.
+
+To begin the cluster creation process, you will need to select two node templates, one for the control plane (master nodes), one for the worker nodes. The difference between the two templates is in the amount of CPU and RAM you're willing to allocate. Control plane nodes need a lot less of those. You can run all nodes as a mix of control plane and worker, but make sure you have an odd number of them (same applies to pure control plane).
 
 In Rancher, create a master template, select vSphere as provider, configure the following:
 
@@ -40,3 +42,5 @@ Click 'Create cluster'.
 To test, deploy artifactory from the catalog apps.
 
 If it doesn't work, look through the kubelet logs. That's what the common ssh key is for. SSH into the master node, run `docker ps | grep kubelet`, get the container id. Run `docker logs <CONTAINER_ID>`, and look for errors.
+
+Recap. What did we end up with? Kubernetes can provision dynamic volumes, and Rancher can create and replace failed nodes. You're constrained by the amount of disk, CPU and RAM available. At the moment, the best value can be had by procuring machines like Dell PowerEdge r610/620, Dell PowerEdge R710/720, as well as HP ProLiant Gen7/8. 
