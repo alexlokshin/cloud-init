@@ -44,3 +44,5 @@ To test, deploy artifactory from the catalog apps.
 If it doesn't work, look through the kubelet logs. That's what the common ssh key is for. SSH into the master node, run `docker ps | grep kubelet`, get the container id. Run `docker logs <CONTAINER_ID>`, and look for errors.
 
 Recap. What did we end up with? Kubernetes can provision dynamic volumes, and Rancher can create and replace failed nodes. You're constrained by the amount of disk, CPU and RAM available. At the moment, the best value can be had by procuring machines like Dell PowerEdge r610/620, Dell PowerEdge R710/720, as well as HP ProLiant Gen7/8. 
+
+PS. Same approach can be used for a real vSphere in an enterprise setting, changes are rather minimal.
