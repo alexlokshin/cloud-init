@@ -4,6 +4,8 @@ For us homelab enthusiasts, it might be a real treat to get a decomissioned serv
 
 Install ESXi 6.7 on your homelab server (I recommend at least 8 phusical CPU cores, and at least 96Gb of RAM). After ESXi is installed, navigate to the ESX_IP provided on the yellow and grey screen. Log in with `admin` and the password you've selected during setup, join all disks into a datastore called `datastore1` (that is a default name, anyways), and create a user called `provisioner` with password `somepassword`, grant it the following permissions (that can be done by right clicking `Host`, and selecting `Permissions`.
 
+Here's a bit of a side note: Rancher can only provision VMs on your ESX host with no license configured. Once you attach the trial license, this feature will stop working.
+
 To be able to use the same SSH key to connect to all of the kubernetes nodes, create a new SSH key with an empty passphrase (https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2), do not overwrite an existing one, ideally save into a separate folder. Make sure you use `RancherOS` for the `-C` parameter value.
 
 Make your cloud-init script accessible on some url (look for an example here: https://raw.githubusercontent.com/alexlokshin/cloud-init/master/rancher.yaml), don't forget to substitute the ssh key with the value from id_rsa.pub. You can also base64 encode the contents of the file  and provide it as a guestinfo parameter called `cloud-init.config.data`.
